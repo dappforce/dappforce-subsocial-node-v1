@@ -1,14 +1,8 @@
-![ Nodes for Joystream](./banner.svg)
+# SubSocial Full Node by [DappForce](https://github.com/dappforce)
 
-# Joystream Full Node
+SubSocial is a set of Substrate runtime modules (SRML) with UI that would allow anyone to launch their own decentralized censorship-resistant social network aka community. We are planning to follow a topology of Polkadot Network where every community will be running on its own Substrate chain and all these decentralized communities will be connected to our own Polkadot relay. This social networking relay could be connected to the official Polkadot Network.
 
-Joystream node built on top of [Substrate](https://github.com/paritytech/substrate).
-
-Follow the instructions below to download the software or build it from source. Further instructions for windows and mac can be found [here.](https://blog.joystream.org/sparta/)
-Linux should be similar to mac.
-
-##  Binary releases
-Downloads are available in [releases](https://github.com/Joystream/substrate-node-joystream/releases).
+You can think of this as decentralized versions of Reddit, Stack Exchange or Medium, where subreddits or communities of Stack Exchange or blogs on Medium run on their own chain. At the same time, users of these decentralized communities should be able to transfer or share their reputation, coins and other values from one community to another via Polkadot relay.
 
 ## Building from source
 
@@ -16,21 +10,21 @@ Downloads are available in [releases](https://github.com/Joystream/substrate-nod
 If you want to build from source you will need the Rust [toolchain](https://rustup.rs/), openssl and llvm/libclang.
 
 ```bash
-git clone https://github.com/Joystream/substrate-node-joystream.git
+git clone git@github.com:dappforce/dappforce-subsocial-node.git
 ```
 
 Initialise the WASM build environment:
 
 ```bash
-cd substrate-node-joystream/
+cd dappforce-subsocial-node/
 ./init-wasm.sh
 ```
 
 ### Building
-Clone the joystream runtime into the substrate-node-joystream directory:
+Clone the SubSocial runtime into the dappforce-subsocial-runtime directory:
 
 ```bash
-git clone https://github.com/Joystream/substrate-runtime-joystream.git
+git clone git@github.com:dappforce/dappforce-subsocial-runtime.git
 ```
 
 Build the WASM runtime library:
@@ -50,7 +44,7 @@ cargo run --release
 ```
 
 ### Installing a release build
-This will install the executable `joystream-node` to your `~/.cargo/bin` folder, which you would normally have in your `$PATH` environment.
+This will install the executable `subsocial-node` to your `~/.cargo/bin` folder, which you would normally have in your `$PATH` environment.
 
 ```bash
 cargo install --path ./
@@ -59,7 +53,7 @@ cargo install --path ./
 Now you can run
 
 ```bash
-joystream-node
+subsocial-node
 ```
 
 ## Development
