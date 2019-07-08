@@ -191,7 +191,7 @@ fn staging_testnet_config_genesis() -> GenesisConfig {
 
     GenesisConfig {
 		consensus: Some(ConsensusConfig {
-			code: include_bytes!("../substrate-runtime-joystream/wasm/target/wasm32-unknown-unknown/release/joystream_node_runtime_wasm.compact.wasm").to_vec(),
+			code: include_bytes!("../dappforce-subsocial-runtime/wasm/target/wasm32-unknown-unknown/release/joystream_node_runtime_wasm.compact.wasm").to_vec(),
 			authorities: initial_authorities.iter().map(|x| x.2.clone()).collect(),
 		}),
 		system: None,
@@ -293,7 +293,7 @@ fn testnet_genesis(
 
     GenesisConfig {
 		consensus: Some(ConsensusConfig {
-			code: include_bytes!("../substrate-runtime-joystream/wasm/target/wasm32-unknown-unknown/release/joystream_node_runtime_wasm.compact.wasm").to_vec(),
+			code: include_bytes!("../dappforce-subsocial-runtime/wasm/target/wasm32-unknown-unknown/release/joystream_node_runtime_wasm.compact.wasm").to_vec(),
 			authorities: initial_authorities.iter().map(|x| x.2.clone()).collect(),
 		}),
 		system: None,

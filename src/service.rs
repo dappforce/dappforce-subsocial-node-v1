@@ -51,7 +51,7 @@ native_executor_instance!(
 	pub Executor,
 	joystream_node_runtime::api::dispatch,
 	joystream_node_runtime::native_version,
-	include_bytes!("../substrate-runtime-joystream/wasm/target/wasm32-unknown-unknown/release/joystream_node_runtime_wasm.compact.wasm")
+	include_bytes!("../dappforce-subsocial-runtime/wasm/target/wasm32-unknown-unknown/release/joystream_node_runtime_wasm.compact.wasm")
 );
 
 pub struct NodeConfig<F: substrate_service::ServiceFactory> {
