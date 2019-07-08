@@ -12,7 +12,7 @@ normal=$(tput sgr0)
 # Save current directory.
 pushd . >/dev/null
 
-for SRC in substrate-runtime-joystream/
+for SRC in dappforce-subsocial-runtime/
 do
   echo "${bold}Building webassembly binary in $SRC...${normal}"
   cd "$PROJECT_ROOT/$SRC"
