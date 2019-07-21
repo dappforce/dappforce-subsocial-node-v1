@@ -46,7 +46,7 @@ rev = '6dfc3e8b057bb00322136251a0f10305fbb1ad8f'
 
 [dependencies.joystream-node-runtime]
 # clone https://github.com/joystream/substrate-runtime-joystream to this path:
-path = 'substrate-runtime-joystream'
+path = 'dappforce-subsocial-runtime'
 
 [dependencies.primitives]
 git = 'https://github.com/joystream/substrate.git'
