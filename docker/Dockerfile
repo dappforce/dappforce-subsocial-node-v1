@@ -2,9 +2,9 @@ FROM rust:1.36 as builder
 
 RUN curl https://getsubstrate.io -sSf | bash -s -- --fast
 
-RUN git clone --branch vlad-add-docker https://github.com/f3joule/dappforce-subsocial-node.git
+RUN git clone -b df-pre-ipfs https://github.com/dappforce/dappforce-subsocial-node.git
 WORKDIR /dappforce-subsocial-node
-RUN git clone --branch vlad-add-docker https://github.com/F3Joule/dappforce-subsocial-runtime.git
+RUN git clone -b df-pre-ipfs https://github.com/dappforce/dappforce-subsocial-runtime.git
 
 RUN ./init-wasm.sh
 
