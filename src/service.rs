@@ -22,7 +22,7 @@ use basic_authorship::ProposerFactory;
 use consensus::{import_queue, start_aura, AuraImportQueue, NothingExtra, SlotDuration};
 use grandpa;
 use inherents::InherentDataProviders;
-use joystream_node_runtime::{self, opaque::Block, GenesisConfig, RuntimeApi};
+use subsocial_runtime::{self, opaque::Block, GenesisConfig, RuntimeApi};
 use log::info;
 use network::construct_simple_protocol;
 use primitives::{ed25519::Pair, Pair as PairT, sr25519::Public as SrPublic, crypto::Ss58Codec};
@@ -49,9 +49,9 @@ pub use substrate_executor::NativeExecutor;
 // Our native executor instance.
 native_executor_instance!(
 	pub Executor,
-	joystream_node_runtime::api::dispatch,
-	joystream_node_runtime::native_version,
-	include_bytes!("../dappforce-subsocial-runtime/wasm/target/wasm32-unknown-unknown/release/joystream_node_runtime_wasm.compact.wasm")
+	subsocial_runtime::api::dispatch,
+	subsocial_runtime::native_version,
+	include_bytes!("../dappforce-subsocial-runtime/wasm/target/wasm32-unknown-unknown/release/subsocial_runtime_wasm.compact.wasm")
 );
 
 pub struct NodeConfig<F: substrate_service::ServiceFactory> {

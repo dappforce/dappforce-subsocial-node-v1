@@ -15,12 +15,10 @@
 // along with Joystream node.  If not, see <http://www.gnu.org/licenses/>.
 
 use hex_literal::{hex, hex_impl};
-use joystream_node_runtime::{
-    AccountId, BalancesConfig, ConsensusConfig, CouncilConfig,
-    CouncilElectionConfig, DataObjectStorageRegistryConfig, DataObjectTypeRegistryConfig,
-    DownloadSessionsConfig, GenesisConfig, GrandpaConfig, IndicesConfig, MembersConfig, Perbill,
-    ProposalsConfig, SessionConfig, StakerStatus, StakingConfig, SudoConfig, TimestampConfig,
-	ActorsConfig,
+use subsocial_runtime::{
+    AccountId, BalancesConfig, ConsensusConfig,
+    GenesisConfig, GrandpaConfig, IndicesConfig, Perbill,
+    SessionConfig, StakerStatus, StakingConfig, SudoConfig, TimestampConfig,
 };
 use primitives::{crypto::UncheckedInto, ed25519, sr25519, Pair};
 use substrate_service;
@@ -45,8 +43,8 @@ pub enum Alternative {
     LocalTestnet,
     /// Staging testnet
     StagingTestnet,
-    /// Testnet - the current live testnet
-    LiveTestnet,
+    // /// Testnet - the current live testnet
+    // LiveTestnet,
 }
 
 fn authority_key(s: &str) -> AuthorityId {
@@ -127,7 +125,7 @@ impl Alternative {
                 None,
             ),
             Alternative::StagingTestnet => staging_testnet_config(),
-            Alternative::LiveTestnet => live_testnet_config()?,
+            // Alternative::LiveTestnet => live_testnet_config()?,
         })
     }
 
@@ -136,26 +134,22 @@ impl Alternative {
             "dev" => Some(Alternative::Development),
             "local" => Some(Alternative::LocalTestnet),
             "staging" => Some(Alternative::StagingTestnet),
-            "" | "testnet" => Some(Alternative::LiveTestnet),
+            // "" | "testnet" => Some(Alternative::LiveTestnet),
             _ => None,
         }
     }
 }
 
-/// LiveTestnet generator
-pub fn live_testnet_config() -> Result<ChainSpec, String> {
-    ChainSpec::from_embedded(include_bytes!("../res/joy_testnet_2.json"))
-}
+// pub fn live_testnet_config() -> Result<ChainSpec, String> {
+//     ChainSpec::from_embedded(include_bytes!("")) // TODO: insert JSON testnet config
+// }
 
 /// Staging testnet config
 pub fn staging_testnet_config() -> ChainSpec {
-    let boot_nodes = vec![
-		String::from("/dns4/bootnode1.joystream.org/tcp/30333/p2p/QmeDa8jASqMRpTh4YCkeVEuHo6nbMcFDzD9pkUxTr3WxhM"),
-		String::from("/dns4/bootnode2.joystream.org/tcp/30333/p2p/QmbjzmNMjzQUMHpzqcPHW5DnFeUjM3x4hbiDSMkYv1McD3"),
-	];
+    let boot_nodes = vec![];
     ChainSpec::from_genesis(
-        "Joystream Staging Testnet",
-        "joy_staging_5",
+        "Subsocial Testnet",
+        "subsocial_testnet_m1",
         staging_testnet_config_genesis,
         boot_nodes,
         Some(TelemetryEndpoints::new(vec![(
@@ -184,14 +178,14 @@ fn staging_testnet_config_genesis() -> GenesisConfig {
 
     const SECS_PER_BLOCK: u64 = 6;
     const MINUTES: u64 = 60 / SECS_PER_BLOCK;
-    const HOURS: u64 = MINUTES * 60;
-    const DAYS: u64 = HOURS * 24;
+    // const HOURS: u64 = MINUTES * 60;
+    // const DAYS: u64 = HOURS * 24;
     const STASH: u128 = 50 * DOLLARS;
     const ENDOWMENT: u128 = 100_000_000 * DOLLARS;
 
     GenesisConfig {
 		consensus: Some(ConsensusConfig {
-			code: include_bytes!("../dappforce-subsocial-runtime/wasm/target/wasm32-unknown-unknown/release/joystream_node_runtime_wasm.compact.wasm").to_vec(),
+			code: include_bytes!("../dappforce-subsocial-runtime/wasm/target/wasm32-unknown-unknown/release/subsocial_runtime_wasm.compact.wasm").to_vec(),
 			authorities: initial_authorities.iter().map(|x| x.2.clone()).collect(),
 		}),
 		system: None,
@@ -236,49 +230,6 @@ fn staging_testnet_config_genesis() -> GenesisConfig {
 		}),
 		grandpa: Some(GrandpaConfig {
 			authorities: initial_authorities.iter().map(|x| (x.2.clone(), 1)).collect(),
-		}),
-		council: Some(CouncilConfig {
-			active_council: vec![],
-			term_ends_at: 1,
-		}),
-		election: Some(CouncilElectionConfig {
-			auto_start: true,
-			announcing_period: 3 * DAYS,
-			voting_period: 1 * DAYS,
-			revealing_period: 1 * DAYS,
-			council_size: 12,
-			candidacy_limit: 25,
-			min_council_stake: 10 * DOLLARS,
-			new_term_duration: 14 * DAYS,
-			min_voting_stake: 1 * DOLLARS,
-		}),
-		proposals: Some(ProposalsConfig {
-			approval_quorum: 66,
-			min_stake: 2 * DOLLARS,
-			cancellation_fee: 10 * CENTS,
-			rejection_fee: 1 * DOLLARS,
-			voting_period: 2 * DAYS,
-			name_max_len: 512,
-			description_max_len: 10_000,
-			wasm_code_max_len: 2_000_000,
-		}),
-		members: Some(MembersConfig {
-			default_paid_membership_fee: 100u128,
-			first_member_id: 1,
-		}),
-		data_object_type_registry: Some(DataObjectTypeRegistryConfig {
-			first_data_object_type_id: 1,
-		}),
-		data_object_storage_registry: Some(DataObjectStorageRegistryConfig{
-			first_relationship_id: 1,
-		}),
-		downloads: Some(DownloadSessionsConfig{
-			first_download_session_id: 1,
-		}),
-		actors: Some(ActorsConfig{
-			enable_storage_role: true,
-			request_life_time: 300,
-			_genesis_phantom_data: Default::default(),
 		})
 	}
 }
@@ -293,7 +244,7 @@ fn testnet_genesis(
 
     GenesisConfig {
 		consensus: Some(ConsensusConfig {
-			code: include_bytes!("../dappforce-subsocial-runtime/wasm/target/wasm32-unknown-unknown/release/joystream_node_runtime_wasm.compact.wasm").to_vec(),
+			code: include_bytes!("../dappforce-subsocial-runtime/wasm/target/wasm32-unknown-unknown/release/subsocial_runtime_wasm.compact.wasm").to_vec(),
 			authorities: initial_authorities.iter().map(|x| x.2.clone()).collect(),
 		}),
 		system: None,
@@ -338,49 +289,6 @@ fn testnet_genesis(
 		}),
 		grandpa: Some(GrandpaConfig {
 			authorities: initial_authorities.iter().map(|x| (x.2.clone(), 1)).collect(),
-		}),
-		council: Some(CouncilConfig {
-			active_council: vec![],
-			term_ends_at: 1,
-		}),
-		election: Some(CouncilElectionConfig {
-			auto_start: true,
-			announcing_period: 50,
-			voting_period: 50,
-			revealing_period: 50,
-			council_size: 2,
-			candidacy_limit: 25,
-			min_council_stake: 100,
-			new_term_duration: 1000,
-			min_voting_stake: 10,
-		}),
-		proposals: Some(ProposalsConfig {
-			approval_quorum: 66,
-			min_stake: 100,
-			cancellation_fee: 5,
-			rejection_fee: 10,
-			voting_period: 100,
-			name_max_len: 100,
-			description_max_len: 10_000,
-			wasm_code_max_len: 2_000_000,
-		}),
-		members: Some(MembersConfig {
-			default_paid_membership_fee: 100u128,
-			first_member_id: 1,
-		}),
-		data_object_type_registry: Some(DataObjectTypeRegistryConfig {
-			first_data_object_type_id: 1,
-		}),
-		data_object_storage_registry: Some(DataObjectStorageRegistryConfig{
-			first_relationship_id: 1,
-		}),
-		downloads: Some(DownloadSessionsConfig{
-			first_download_session_id: 1,
-		}),
-		actors: Some(ActorsConfig{
-			enable_storage_role: true,
-			request_life_time: 300,
-			_genesis_phantom_data: Default::default(),
 		})
 	}
 }
