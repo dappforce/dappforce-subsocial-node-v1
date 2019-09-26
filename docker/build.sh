@@ -10,7 +10,7 @@ cd $PROJECT_ROOT
 # Find the current version from Cargo.toml
 VERSION=`grep "^version" ./Cargo.toml | egrep -o "([0-9\.]+)"`
 GITUSER=dappforce
-GITREPO=subsocial
+GITREPO=subsocial-node
 
 # Build the image
 echo "Building ${GITUSER}/${GITREPO}:latest docker image, hang on!"

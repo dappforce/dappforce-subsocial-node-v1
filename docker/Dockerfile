@@ -1,28 +1,32 @@
-FROM rust:1.36 as builder
+FROM rust:jessie as builder
 
-RUN curl https://getsubstrate.io -sSf | bash -s -- --fast
+ENV TERM xterm
 
-RUN git clone -b df-pre-ipfs https://github.com/dappforce/dappforce-subsocial-node.git
-WORKDIR /dappforce-subsocial-node
-RUN git clone -b df-pre-ipfs https://github.com/dappforce/dappforce-subsocial-runtime.git
-
-RUN ./init-wasm.sh
-
-WORKDIR /dappforce-subsocial-node/dappforce-subsocial-runtime
-RUN ./build.sh
+RUN apt-get update && apt-get upgrade -y && apt-get install -y cmake pkg-config libssl-dev git clang
 
 WORKDIR /dappforce-subsocial-node
+COPY init-wasm.sh .
+COPY build-runtime.sh .
+COPY Cargo.toml .
+COPY Cargo.lock .
+COPY dappforce-subsocial-runtime/ dappforce-subsocial-runtime/
+
+RUN ./init-wasm.sh && ./build-runtime.sh
+
+COPY src/ src/
+COPY build.rs .
+
 RUN cargo build
 
-FROM rust:1.36
+FROM rust:jessie
 
-COPY --from=builder /dappforce-subsocial-node/target/debug/joystream-node /usr/local/bin
+COPY --from=builder /dappforce-subsocial-node/target/debug/subsocial-node .
 
 RUN mv /usr/share/ca* /tmp && \
     rm -rf /usr/share/* && \
     mv /tmp/ca-certificates /usr/share && \
-    mkdir -p /root/.local/share/joystream-node && \
-    ln -s /root/.local/share/joystream-node /data
+    mkdir -p /root/.local/share/subsocial-node && \
+    ln -s /root/.local/share/subsocial-node /data
 
 RUN rm -rf /usr/bin /usr/sbin
 
@@ -30,4 +34,4 @@ RUN rm -rf /usr/bin /usr/sbin
 EXPOSE 30333 9933 9944
 VOLUME ["/data"]
 
-CMD ["/usr/local/bin/joystream-node"]
+CMD ["./subsocial-node"]
