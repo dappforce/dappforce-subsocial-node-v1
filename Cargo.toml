@@ -1,12 +1,12 @@
 [[bin]]
-name = 'joystream-node'
+name = 'subsocial-node'
 path = 'src/main.rs'
 
 [package]
-authors = ['Joystream']
+authors = ['Dappforce']
 build = 'build.rs'
 edition = '2018'
-name = 'joystream-node'
+name = 'subsocial-node'
 version = '1.0.0'
 
 [dependencies]
@@ -44,8 +44,7 @@ git = 'https://github.com/joystream/substrate.git'
 package = 'substrate-network'
 rev = '6dfc3e8b057bb00322136251a0f10305fbb1ad8f'
 
-[dependencies.joystream-node-runtime]
-# clone https://github.com/joystream/substrate-runtime-joystream to this path:
+[dependencies.subsocial-runtime]
 path = 'dappforce-subsocial-runtime'
 
 [dependencies.primitives]

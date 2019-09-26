@@ -27,13 +27,13 @@ pub use substrate_cli::{error, IntoExit, VersionInfo};
 
 fn run() -> cli::error::Result<()> {
     let version = VersionInfo {
-        name: "Joystream Node",
+        name: "Subsocial Node",
         commit: env!("VERGEN_SHA_SHORT"),
         version: env!("CARGO_PKG_VERSION"),
-        executable_name: "joystream-node",
-        author: "Joystream",
-        description: "Joystream substrate node",
-        support_url: "https://www.joystream.org/",
+        executable_name: "subsocial-node",
+        author: "Dappforce",
+        description: "Dappforce subsocial substrate node",
+        support_url: "",
     };
     cli::run(::std::env::args(), cli::Exit, version)
 }
