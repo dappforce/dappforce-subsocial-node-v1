@@ -32,8 +32,8 @@ fn run() -> cli::error::Result<()> {
         version: env!("CARGO_PKG_VERSION"),
         executable_name: "subsocial-node",
         author: "Dappforce",
-        description: "Dappforce subsocial substrate node",
-        support_url: "",
+        description: "Dappforce Subsocial Substrate node",
+        support_url: "http://dappforce.io",
     };
     cli::run(::std::env::args(), cli::Exit, version)
 }
