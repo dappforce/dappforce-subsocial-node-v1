@@ -249,7 +249,7 @@ fn testnet_genesis(
 		}),
 		system: None,
 		timestamp: Some(TimestampConfig {
-			minimum_period: 3,                    // 3*2=6 second block time.
+			minimum_period: 1,                    // 3*2=6 second block time.
 		}),
 		indices: Some(IndicesConfig {
 			ids: vec![]
