@@ -43,8 +43,6 @@ pub enum Alternative {
     LocalTestnet,
     /// Staging testnet
     StagingTestnet,
-    // /// Testnet - the current live testnet
-    // LiveTestnet,
 }
 
 fn authority_key(s: &str) -> AuthorityId {
@@ -79,6 +77,11 @@ impl Alternative {
                         vec![
                             // endowed account
                             account_key("Alice"),
+                            account_key("Bob"),
+                            account_key("Charlie"),
+                            account_key("Dave"),
+                            account_key("Eve"),
+                            account_key("Ferdie"),
                         ],
                         // sudo key
                         account_key("Alice"),
@@ -109,11 +112,6 @@ impl Alternative {
                         ],
                         vec![
                             account_key("Alice"),
-                            account_key("Bob"),
-                            account_key("Charlie"),
-                            account_key("Dave"),
-                            account_key("Eve"),
-                            account_key("Ferdie"),
                         ],
                         account_key("Alice"),
                     )
@@ -125,7 +123,6 @@ impl Alternative {
                 None,
             ),
             Alternative::StagingTestnet => staging_testnet_config(),
-            // Alternative::LiveTestnet => live_testnet_config()?,
         })
     }
 
@@ -134,22 +131,17 @@ impl Alternative {
             "dev" => Some(Alternative::Development),
             "local" => Some(Alternative::LocalTestnet),
             "staging" => Some(Alternative::StagingTestnet),
-            // "" | "testnet" => Some(Alternative::LiveTestnet),
             _ => None,
         }
     }
 }
-
-// pub fn live_testnet_config() -> Result<ChainSpec, String> {
-//     ChainSpec::from_embedded(include_bytes!("")) // TODO: insert JSON testnet config
-// }
 
 /// Staging testnet config
 pub fn staging_testnet_config() -> ChainSpec {
     let boot_nodes = vec![];
     ChainSpec::from_genesis(
         "Subsocial Testnet",
-        "subsocial_testnet_m1",
+        "subsocial_testnet_m3",
         staging_testnet_config_genesis,
         boot_nodes,
         Some(TelemetryEndpoints::new(vec![(
@@ -176,7 +168,7 @@ fn staging_testnet_config_genesis() -> GenesisConfig {
     const CENTS: u128 = 1;
     const DOLLARS: u128 = 100 * CENTS;
 
-    const SECS_PER_BLOCK: u64 = 6;
+    const SECS_PER_BLOCK: u64 = 4;
     const MINUTES: u64 = 60 / SECS_PER_BLOCK;
     // const HOURS: u64 = MINUTES * 60;
     // const DAYS: u64 = HOURS * 24;
