@@ -56,6 +56,33 @@ Now you can run
 subsocial-node
 ```
 
+## Building from Docker
+
+### Easiest start
+To start Subsocial Full Node separately (you should have docker-compose):
+
+```
+cd docker/
+docker-compose up -d
+```
+
+### Start with your own  parameters
+
+```
+docker run -p 9944:9944 dappforce/subsocial-node:latest ./subsocial-node [flags] [options]
+```
+* Don't forget `--ws-external` flag, if you want your node to be visible no only within the container.
+
+### Build your own image
+If you want to build docker image from your local repository (it takes a while...), in your shell:
+
+```
+cd docker/
+./build
+```
+
+### Start all parts of Subsocial at once with [Subsocial-Starter](https://github.com/dappforce/dappforce-subsocial-starter)
+
 ## Development
 
 ### Running a local development node
@@ -70,7 +97,3 @@ When making changes to the runtime library remember to purge the chain after reb
 ```bash
 cargo run --release -- purge-chain --dev
 ```
-
-### Substrate node template
-
-The full node is built based on the substrate node [template](https://github.com/shawntabrizi/substrate-package/tree/master/substrate-node-template)
