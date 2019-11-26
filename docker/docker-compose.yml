@@ -1,0 +1,20 @@
+# docker-compose.yml
+version: "3"
+services:
+  subsocial-substrate:
+    build:
+      context: ..
+      dockerfile: ./docker/Dockerfile
+    image: dappforce/subsocial-node:latest
+    container_name: subsocial_substrate_node
+    network_mode: "host"
+    ports:
+      - "9944:9944"
+    restart: on-failure
+    volumes:
+      - chain_data:/data
+    command: ./subsocial-node --dev --ws-external
+
+volumes:
+  chain_data:
+    driver: local
