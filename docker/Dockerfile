@@ -1,8 +1,8 @@
-FROM rust:jessie as builder
+FROM rust:slim as builder
 
 ENV TERM xterm
 
-RUN apt-get update && apt-get upgrade -y && apt-get install -y cmake pkg-config libssl-dev git clang
+RUN apt-get update && apt-get upgrade -y && apt-get install -y cmake pkg-config libssl-dev clang
 
 WORKDIR /dappforce-subsocial-node
 COPY init-wasm.sh .
@@ -11,14 +11,15 @@ COPY Cargo.toml .
 COPY Cargo.lock .
 COPY dappforce-subsocial-runtime/ dappforce-subsocial-runtime/
 
-RUN ./init-wasm.sh && ./build-runtime.sh
+RUN ./init-wasm.sh
+RUN ./build-runtime.sh
 
 COPY src/ src/
 COPY build.rs .
 
 RUN cargo build
 
-FROM rust:jessie
+FROM rust:slim
 
 COPY --from=builder /dappforce-subsocial-node/target/debug/subsocial-node .
 
