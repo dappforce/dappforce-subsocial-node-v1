@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-./build-runtime.sh
-cargo build
+cargo build --release
 cargo run -- purge-chain --dev
 cargo run -- --dev
