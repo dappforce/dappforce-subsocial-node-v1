@@ -83,7 +83,7 @@ cd docker/
 ./build
 ```
 
-### Start all parts of Subsocial at once with [Subsocial-Starter](https://github.com/dappforce/dappforce-subsocial-starter)
+### Start all parts of Subsocial at once with [Subsocial Starter](https://github.com/dappforce/dappforce-subsocial-starter).
 
 ## Development
 
@@ -99,3 +99,7 @@ When making changes to the runtime library remember to purge the chain after reb
 ```bash
 cargo run --release -- purge-chain --dev
 ```
+
+## License
+
+Subsocial is [GPL 3.0](./LICENSE) licensed.
