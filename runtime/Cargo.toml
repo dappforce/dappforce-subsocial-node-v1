@@ -1,3 +1,41 @@
+[package]
+authors = ['Dappforce']
+edition = '2018'
+name = 'subsocial-runtime'
+version = '2.0.0'
+
+[features]
+default = ['std']
+std = [
+    'aura/std',
+    'balances/std',
+    'codec/std',
+    'frame-executive/std',
+    'frame-support/std',
+    'grandpa/std',
+    'indices/std',
+    'randomness-collective-flip/std',
+    'safe-mix/std',
+    'serde',
+    'sp-api/std',
+    'sp-block-builder/std',
+    'sp-consensus-aura/std',
+    'sp-core/std',
+    'sp-inherents/std',
+    'sp-io/std',
+    'sp-offchain/std',
+    'sp-runtime/std',
+    'sp-session/std',
+    'sp-std/std',
+    'sp-transaction-pool/std',
+    'sp-version/std',
+    'sudo/std',
+    'system/std',
+    'timestamp/std',
+    'transaction-payment/std',
+    'pallet-social/std'
+]
+
 [dependencies.aura]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
@@ -160,45 +198,10 @@ version = '2.0.0'
 
 [dependencies.pallet-social]
 default-features = false
-path = '../pallets/social'
-
-[features]
-default = ['std']
-std = [
-    'aura/std',
-    'balances/std',
-    'codec/std',
-    'frame-executive/std',
-    'frame-support/std',
-    'grandpa/std',
-    'indices/std',
-    'randomness-collective-flip/std',
-    'safe-mix/std',
-    'serde',
-    'sp-api/std',
-    'sp-block-builder/std',
-    'sp-consensus-aura/std',
-    'sp-core/std',
-    'sp-inherents/std',
-    'sp-io/std',
-    'sp-offchain/std',
-    'sp-runtime/std',
-    'sp-session/std',
-    'sp-std/std',
-    'sp-transaction-pool/std',
-    'sp-version/std',
-    'sudo/std',
-    'system/std',
-    'timestamp/std',
-    'transaction-payment/std',
-    'pallet-social/std'
-]
-
-[package]
-authors = ['Dappforce']
-edition = '2018'
-name = 'subsocial-runtime'
+git = 'https://github.com/f3joule/subsocial-pallet.git'
+rev = '60df7931e7ff80dff900deab8708a66fc1fa4c12'
 version = '2.0.0'
+
 [build-dependencies.wasm-builder-runner]
 git = 'https://github.com/paritytech/substrate.git'
 package = 'substrate-wasm-builder-runner'

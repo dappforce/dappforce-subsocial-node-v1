@@ -6,7 +6,7 @@ services:
       context: ..
       dockerfile: ./docker/Dockerfile
     image: dappforce/subsocial-node:latest
-    container_name: subsocial_substrate_node
+    container_name: subsocial-node
     network_mode: "host"
     ports:
       - "9944:9944"
